@@ -26,6 +26,8 @@ class QrCodeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        title = "Your QR Code"
+
         val qrCodeUrl = intent?.getStringExtra(INTENT_EXTRA_QR_CODE_URL)
         Glide.with(this)
             .load(qrCodeUrl)
