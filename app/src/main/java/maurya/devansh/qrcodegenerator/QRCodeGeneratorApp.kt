@@ -8,6 +8,11 @@ import io.appwrite.Client
  */
 
 class QRCodeGeneratorApp : Application() {
+
+    companion object {
+        val INSTANCE = this
+    }
+
     override fun onCreate() {
         super.onCreate()
         val client = Client(this)
