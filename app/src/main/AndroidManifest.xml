@@ -31,7 +31,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="appwrite-callback-dev-hackathon-qr-generator" />
+                <data android:scheme="appwrite-callback-appwrite-dev-hackathon-qr-generator" />
             </intent-filter>
         </activity>
     </application>
