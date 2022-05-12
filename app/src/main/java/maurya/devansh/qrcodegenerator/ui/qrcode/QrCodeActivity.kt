@@ -9,7 +9,6 @@ import maurya.devansh.qrcodegenerator.R
 import maurya.devansh.qrcodegenerator.data.model.QrCodeImageUrl
 import maurya.devansh.qrcodegenerator.databinding.ActivityQrCodeBinding
 
-
 class QrCodeActivity : AppCompatActivity() {
 
     companion object {
@@ -30,7 +29,7 @@ class QrCodeActivity : AppCompatActivity() {
         val qrCodeUrl = intent?.getStringExtra(INTENT_EXTRA_QR_CODE_URL)
         Glide.with(this)
             .load(qrCodeUrl)
-            .placeholder(R.drawable.placeholder)
+            .thumbnail(Glide.with(this).load(R.drawable.placeholder))
             .into(binding.ivQrCode)
     }
 }
