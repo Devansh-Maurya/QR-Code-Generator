@@ -3,6 +3,7 @@ package maurya.devansh.qrcodegenerator.di.module
 import maurya.devansh.qrcodegenerator.BuildConfig
 import maurya.devansh.qrcodegenerator.data.remote.NetworkService
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,7 +17,11 @@ object AppModule {
     val networkService by lazy { provideNetworkService() }
 
     private fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient().newBuilder().build()
+        return OkHttpClient().newBuilder()
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .build()
     }
 
     private fun provideRetrofit(): Retrofit {
