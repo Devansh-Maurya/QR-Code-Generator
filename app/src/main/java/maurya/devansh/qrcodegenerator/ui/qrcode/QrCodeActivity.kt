@@ -4,24 +4,25 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import maurya.devansh.qrcodegenerator.R
-import maurya.devansh.qrcodegenerator.data.model.QrCodeImageUrl
 import maurya.devansh.qrcodegenerator.databinding.ActivityQrCodeBinding
 
 class QrCodeActivity : AppCompatActivity() {
 
     companion object {
-        private const val INTENT_EXTRA_QR_CODE_URL = "qr_code_url"
+        private const val INTENT_EXTRA_QR_TEXT = "qr_text"
 
-        fun getStartIntent(context: Context, qrCodeUrl: QrCodeImageUrl): Intent =
+        fun getStartIntent(context: Context, qrText: String): Intent =
             Intent(context, QrCodeActivity::class.java).apply {
-                putExtra(INTENT_EXTRA_QR_CODE_URL, qrCodeUrl)
+                putExtra(INTENT_EXTRA_QR_TEXT, qrText)
             }
     }
 
     private val binding by lazy { ActivityQrCodeBinding.inflate(layoutInflater) }
+    private val viewModel by viewModels<QrCodeActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +31,19 @@ class QrCodeActivity : AppCompatActivity() {
         title = "Your QR Code"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val qrCodeUrl = intent?.getStringExtra(INTENT_EXTRA_QR_CODE_URL)
         Glide.with(this)
-            .load(qrCodeUrl)
-            .thumbnail(Glide.with(this).load(R.drawable.placeholder))
+            .load(R.drawable.placeholder)
             .into(binding.ivQrCode)
+
+        val qrText = intent?.getStringExtra(INTENT_EXTRA_QR_TEXT)
+        viewModel.getQrCode(qrText.orEmpty())
+
+        viewModel.qrCodeLiveData.observe(this) {
+            Glide.with(this)
+                .load(it)
+                .thumbnail(Glide.with(this).load(R.drawable.placeholder))
+                .into(binding.ivQrCode)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
