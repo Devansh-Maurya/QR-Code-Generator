@@ -13,7 +13,7 @@ class QrCodeGeneratorApp : Application() {
         lateinit var INSTANCE: QrCodeGeneratorApp
     }
 
-    val client by lazy {
+    val appwriteClient by lazy {
         Client(this)
             .setEndpoint("${BuildConfig.APPWRITE_BASE_URL}/v1")
             .setProject(BuildConfig.APPWRITE_PROJECT_ID)

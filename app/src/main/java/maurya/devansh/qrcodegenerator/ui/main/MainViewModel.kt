@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
         get() = _qrCodeLiveData
 
     fun getQrCodeUrl(text: String) {
-        val avatars = Avatars(QrCodeGeneratorApp.INSTANCE.client)
+        val avatars = Avatars(QrCodeGeneratorApp.INSTANCE.appwriteClient)
 
         viewModelScope.launch {
             avatars.getQR(text).runCatching {
