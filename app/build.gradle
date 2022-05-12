@@ -6,6 +6,9 @@ plugins {
 android {
     compileSdk 32
 
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
     defaultConfig {
         applicationId "maurya.devansh.qrcodegenerator"
         minSdk 21
@@ -14,6 +17,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'APPWRITE_PROJECT_ID', /"${localProperties['appwriteProjectId']}"/
+        buildConfigField 'String', 'APPWRITE_BASE_URL', /"${localProperties['appwriteBaseUrl']}"/
     }
 
     buildTypes {
