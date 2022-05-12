@@ -10,6 +10,6 @@ import retrofit2.http.Query
 
 interface NetworkService {
 
-    @GET
+    @GET("/v1/avatars/qr")
     suspend fun getQrCode(@Query("text") text: String): QrCodeImageUrl
 }
