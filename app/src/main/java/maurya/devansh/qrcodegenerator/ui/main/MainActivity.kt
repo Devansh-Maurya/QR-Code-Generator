@@ -3,8 +3,8 @@ package maurya.devansh.qrcodegenerator.ui.main
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import maurya.devansh.qrcodegenerator.databinding.ActivityMainBinding
+import maurya.devansh.qrcodegenerator.ui.qrcode.QrCodeActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,9 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel.qrCodeLiveData.observe(this) {
-            Glide.with(this)
-                .load(it)
-                .into(binding.ivQr)
+            startActivity(QrCodeActivity.getStartIntent(this, it))
         }
 
         binding.btGenerateQr.setOnClickListener {
