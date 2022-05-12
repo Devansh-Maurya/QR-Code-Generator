@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import maurya.devansh.qrcodegenerator.R
+import maurya.devansh.qrcodegenerator.data.model.QrCodeImageUrl
 import maurya.devansh.qrcodegenerator.databinding.ActivityQrCodeBinding
 
 class QrCodeActivity : AppCompatActivity() {
@@ -14,7 +15,7 @@ class QrCodeActivity : AppCompatActivity() {
     companion object {
         private const val INTENT_EXTRA_QR_CODE_URL = "qr_code_url"
 
-        fun getStartIntent(context: Context, qrCodeUrl: ByteArray): Intent =
+        fun getStartIntent(context: Context, qrCodeUrl: QrCodeImageUrl): Intent =
             Intent(context, QrCodeActivity::class.java).apply {
                 putExtra(INTENT_EXTRA_QR_CODE_URL, qrCodeUrl)
             }
@@ -29,7 +30,7 @@ class QrCodeActivity : AppCompatActivity() {
         title = "Your QR Code"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val qrCodeUrl = intent?.getByteArrayExtra(INTENT_EXTRA_QR_CODE_URL)
+        val qrCodeUrl = intent?.getStringExtra(INTENT_EXTRA_QR_CODE_URL)
         Glide.with(this)
             .load(qrCodeUrl)
             .thumbnail(Glide.with(this).load(R.drawable.placeholder))
