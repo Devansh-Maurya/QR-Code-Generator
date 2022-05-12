@@ -3,8 +3,10 @@ package maurya.devansh.qrcodegenerator.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import maurya.devansh.qrcodegenerator.BuildConfig
-import maurya.devansh.qrcodegenerator.data.model.QrCodeImageUrl
+import androidx.lifecycle.viewModelScope
+import io.appwrite.services.Avatars
+import kotlinx.coroutines.launch
+import maurya.devansh.qrcodegenerator.QrCodeGeneratorApp
 
 /**
  * Created by devansh on 12/05/22.
@@ -12,11 +14,17 @@ import maurya.devansh.qrcodegenerator.data.model.QrCodeImageUrl
 
 class MainViewModel : ViewModel() {
 
-    private val _qrCodeLiveData = MutableLiveData<QrCodeImageUrl>()
-    val qrCodeLiveData: LiveData<QrCodeImageUrl>
+    private val _qrCodeLiveData = MutableLiveData<ByteArray>()
+    val qrCodeLiveData: LiveData<ByteArray>
         get() = _qrCodeLiveData
 
     fun getQrCodeUrl(text: String) {
-        _qrCodeLiveData.value = "${BuildConfig.APPWRITE_BASE_URL}v1/avatars/qr?text=${text}"
+        val avatars = Avatars(QrCodeGeneratorApp.INSTANCE.client)
+
+        viewModelScope.launch {
+            avatars.getQR(text).runCatching {
+                _qrCodeLiveData.value = this
+            }
+        }
     }
 }
