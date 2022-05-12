@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QRCodeGenerator">
         <activity
+            android:name=".ui.qrcode.QrCodeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -19,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="io.appwrite.views.CallbackActivity"
             android:exported="true">
@@ -29,7 +31,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="appwrite-callback-dev-hackathon-qr-generator" />
+                <data android:scheme="appwrite-callback-appwrite-dev-hackathon-qr-generator" />
             </intent-filter>
         </activity>
     </application>
