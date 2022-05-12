@@ -3,6 +3,7 @@
     package="maurya.devansh.qrcodegenerator">
 
     <application
+        android:name=".QRCodeGeneratorApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,11 +20,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="io.appwrite.views.CallbackActivity" android:exported="true">
+        <activity
+            android:name="io.appwrite.views.CallbackActivity"
+            android:exported="true">
             <intent-filter android:label="android_web_auth">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="appwrite-callback-dev-hackathon-qr-generator" />
             </intent-filter>
         </activity>
